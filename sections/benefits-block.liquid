@@ -1,0 +1,156 @@
+<div class="benefits-block">
+  <div class="benefits-block__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="benefits-block__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="benefits-block__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="benefits-block__list">
+      {% assign row_index = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'benefit' %}
+          {% assign row_index = row_index | plus: 1 %}
+          <div class="benefits-block__row {% if row_index | modulo: 2 == 0 %}benefits-block__row--reverse{% endif %}" {{ block.shopify_attributes }}>
+            <div class="benefits-block__media">
+              {% if block.settings.image %}
+                {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'benefits-block__image' }}
+              {% else %}
+                <img class="benefits-block__image" src="https://images.unsplash.com/photo-1521058394093-99fe728ffde7?w=800&q=80&auto=format&fit=crop" alt="{{ block.settings.heading }}">
+              {% endif %}
+            </div>
+            <div class="benefits-block__text">
+              <h3 class="benefits-block__row-heading">{{ block.settings.heading }}</h3>
+              <p class="benefits-block__row-text">{{ block.settings.text }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .benefits-block {
+    background: #FFF9F2;
+    padding: 56px 24px;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .benefits-block__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+
+  .benefits-block__eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #B5764C;
+    margin: 0 0 10px;
+    text-align: center;
+  }
+
+  .benefits-block__heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 700;
+    color: #3E2F23;
+    margin: 0 0 48px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .benefits-block__list {
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .benefits-block__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+
+  .benefits-block__row--reverse .benefits-block__media {
+    order: 2;
+  }
+
+  .benefits-block__media {
+    border-radius: 18px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+  }
+
+  .benefits-block__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .benefits-block__row-heading {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #3E2F23;
+    margin: 0 0 12px;
+  }
+
+  .benefits-block__row-text {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: #6B5842;
+    margin: 0;
+    max-width: 380px;
+  }
+
+  @media (max-width: 749px) {
+    .benefits-block { padding: 20px 16px; }
+    .benefits-block__heading { margin-bottom: 32px; }
+    .benefits-block__list { gap: 32px; }
+    .benefits-block__row {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+    .benefits-block__row--reverse .benefits-block__media {
+      order: 0;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Benefits Block",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why dog parents love it" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "More than a harness." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit Row",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Calm walks, finally" },
+        { "type": "text", "id": "text", "label": "Description", "default": "The even pressure means no more choking or gasping — just a relaxed dog enjoying the walk." }
+      ]
+    }
+  ],
+  "max_blocks": 3,
+  "presets": [
+    {
+      "name": "Benefits Block",
+      "blocks": [
+        { "type": "benefit", "settings": { "heading": "Calm walks, finally", "text": "The even pressure means no more choking or gasping — just a relaxed dog enjoying the walk." } },
+        { "type": "benefit", "settings": { "heading": "Built for real life", "text": "Machine-washable mesh handles mud, rain, and everyday adventures without falling apart." } },
+        { "type": "benefit", "settings": { "heading": "Safe after dark", "text": "Reflective stitching keeps your dog visible on early mornings and evening walks." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

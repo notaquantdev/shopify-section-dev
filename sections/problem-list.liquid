@@ -1,0 +1,118 @@
+<div class="problem-list">
+  <div class="problem-list__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="problem-list__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="problem-list__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="problem-list__grid">
+      {% for block in section.blocks %}
+        {% if block.type == 'problem' %}
+          <div class="problem-list__item" {{ block.shopify_attributes }}>
+            <span class="problem-list__icon">{{ block.settings.icon }}</span>
+            <p class="problem-list__text">{{ block.settings.text }}</p>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .problem-list {
+    background: #FFF9F2;
+    padding: 56px 24px;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .problem-list__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .problem-list__eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #B5764C;
+    margin: 0 0 10px;
+  }
+
+  .problem-list__heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 700;
+    color: #3E2F23;
+    margin: 0 0 36px;
+    line-height: 1.2;
+  }
+
+  .problem-list__grid {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    text-align: left;
+  }
+
+  .problem-list__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: #fff;
+    padding: 16px 20px;
+    border-radius: 14px;
+  }
+
+  .problem-list__icon {
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+
+  .problem-list__text {
+    font-size: 15.5px;
+    line-height: 1.5;
+    color: #4A3B2C;
+    margin: 0;
+  }
+
+  @media (max-width: 749px) {
+    .problem-list { padding: 20px 16px; }
+    .problem-list__heading { margin-bottom: 24px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Problem List",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sound familiar?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Walking your dog shouldn't feel like a wrestling match." }
+  ],
+  "blocks": [
+    {
+      "type": "problem",
+      "name": "Problem",
+      "settings": [
+        { "type": "text", "id": "icon", "label": "Emoji icon", "default": "😩" },
+        { "type": "text", "id": "text", "label": "Problem text", "default": "Your arm's sore before you're even off your street." }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Problem List",
+      "blocks": [
+        { "type": "problem", "settings": { "icon": "😩", "text": "Your arm's sore before you're even off your street." } },
+        { "type": "problem", "settings": { "icon": "😰", "text": "You dread walks because you never know when they'll lunge." } },
+        { "type": "problem", "settings": { "icon": "🩹", "text": "Regular collars choke and chafe with every pull." } },
+        { "type": "problem", "settings": { "icon": "🙄", "text": "Cheap harnesses fall apart or slip right off." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,203 @@
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="hero-offer">
+  <div class="hero-offer__paws" aria-hidden="true">
+    <span class="paw p1">🐾</span>
+    <span class="paw p2">🐾</span>
+    <span class="paw p3">🐾</span>
+    <span class="paw p4">🐾</span>
+    <span class="paw p5">🐾</span>
+  </div>
+
+  <div class="hero-offer__grid">
+    <div class="hero-offer__media-wrap">
+      <div class="hero-offer__blob"></div>
+      <div class="hero-offer__media">
+        {% if section.settings.image %}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'eager', class: 'hero-offer__image' }}
+        {% else %}
+          <img class="hero-offer__image" src="https://images.unsplash.com/photo-1581597359121-0f69057e2fb1?w=1200&q=80&auto=format&fit=crop" alt="Dog wearing the SnugWalk harness">
+        {% endif %}
+      </div>
+      <span class="hero-offer__badge">Launch Week</span>
+      <div class="hero-offer__stamp"><span>🐾 Fur-Parent<br>Approved</span></div>
+    </div>
+
+    <div class="hero-offer__content">
+      <h1 class="hero-offer__heading">Walks <em>without the fight</em>.</h1>
+      <p class="hero-offer__description">Even the strongest pullers settle down with SnugWalk.</p>
+
+      <ul class="hero-offer__usps">
+        <li>Fits <strong>XS to XL</strong> breeds</li>
+        <li><strong>Padded</strong> chest panel, zero rubbing</li>
+        <li>On in <strong>10 seconds</strong>, no fuss</li>
+      </ul>
+
+      <div class="hero-offer__price-row">
+        <span class="hero-offer__compare-price">$49.95</span>
+        <span class="hero-offer__price">$34.95</span>
+        <span class="hero-offer__discount">30% Rabatt</span>
+      </div>
+
+      <a href="#" class="hero-offer__button">Save 30% Now</a>
+
+      <div class="hero-offer__trust-mini">
+        <span>30-Day Guarantee</span>
+        <span>Free Shipping</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .hero-offer {
+    position: relative;
+    font-family: 'Work Sans', sans-serif;
+    background: #FFF9F2;
+    padding: 20px 16px;
+    overflow: hidden;
+  }
+
+  @media (min-width: 750px) {
+    .hero-offer { padding: 56px 24px; }
+  }
+
+  .hero-offer__paws { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+  .paw { position: absolute; font-size: 30px; opacity: 0; animation-duration: 9s; animation-iteration-count: infinite; animation-timing-function: ease-in-out; }
+  .p1 { top: 78%; left: 4%;  animation-name: paw1; }
+  .p2 { top: 62%; left: 20%; animation-name: paw2; }
+  .p3 { top: 46%; left: 38%; animation-name: paw3; }
+  .p4 { top: 30%; left: 56%; animation-name: paw4; }
+  .p5 { top: 14%; left: 74%; animation-name: paw5; }
+  @keyframes paw1 { 0%{opacity:0;} 2%{opacity:0.25;} 9%{opacity:0.25;} 11%{opacity:0;} 100%{opacity:0;} }
+  @keyframes paw2 { 0%{opacity:0;} 13%{opacity:0;} 15%{opacity:0.25;} 22%{opacity:0.25;} 24%{opacity:0;} 100%{opacity:0;} }
+  @keyframes paw3 { 0%{opacity:0;} 26%{opacity:0;} 28%{opacity:0.25;} 35%{opacity:0.25;} 37%{opacity:0;} 100%{opacity:0;} }
+  @keyframes paw4 { 0%{opacity:0;} 39%{opacity:0;} 41%{opacity:0.25;} 48%{opacity:0.25;} 50%{opacity:0;} 100%{opacity:0;} }
+  @keyframes paw5 { 0%{opacity:0;} 52%{opacity:0;} 54%{opacity:0.25;} 61%{opacity:0.25;} 63%{opacity:0;} 100%{opacity:0;} }
+
+  .hero-offer__grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.05fr 1fr;
+    align-items: center;
+    gap: 48px;
+    max-width: 1160px;
+    margin: 0 auto;
+  }
+
+  .hero-offer__media-wrap {
+    position: relative;
+    max-width: 320px;
+    margin: 0 0 40px 0;
+  }
+
+  .hero-offer__blob {
+    position: absolute;
+    top: -8%;
+    left: -10%;
+    width: 120%;
+    height: 120%;
+    background: #F4D9B8;
+    border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
+    z-index: 0;
+  }
+
+  .hero-offer__media {
+    position: relative;
+    z-index: 1;
+    border-radius: 38% 62% 55% 45% / 55% 45% 55% 45%;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    box-shadow: 0 20px 40px -14px rgba(120, 90, 60, 0.3);
+  }
+
+  .hero-offer__image { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  .hero-offer__badge {
+    position: absolute;
+    top: 6%;
+    left: 2%;
+    z-index: 2;
+    background: #D97B4F;
+    color: #fff;
+    font-family: 'Fraunces', serif;
+    font-weight: 700;
+    font-size: 12.5px;
+    padding: 7px 15px;
+    border-radius: 999px;
+    box-shadow: 0 6px 14px rgba(217, 123, 79, 0.4);
+    transform: rotate(-6deg);
+  }
+
+  .hero-offer__stamp {
+    position: absolute;
+    bottom: 6%;
+    right: 2%;
+    z-index: 2;
+    width: 70px;
+    height: 70px;
+    background: #6B9080;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 9px;
+    font-weight: 600;
+    line-height: 1.25;
+    transform: rotate(8deg);
+    box-shadow: 0 8px 16px rgba(107, 144, 128, 0.4);
+    border: 2px dashed rgba(255,255,255,0.5);
+  }
+
+  .hero-offer__heading { font-family: 'Fraunces', serif; font-size: clamp(32px, 3.6vw, 44px); line-height: 1.14; font-weight: 700; margin: 0 0 12px; color: #3E2F23; }
+  .hero-offer__heading em { font-style: italic; color: #D97B4F; }
+  .hero-offer__description { font-size: 16px; line-height: 1.5; color: #6B5842; margin: 0 0 16px; max-width: 380px; }
+
+  .hero-offer__usps { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+  .hero-offer__usps li { font-size: 14px; color: #4A3B2C; padding-left: 16px; position: relative; }
+  .hero-offer__usps li::before { content: "—"; position: absolute; left: 0; color: #D97B4F; }
+
+  .hero-offer__price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+  .hero-offer__compare-price { font-size: 15px; color: #B08968; text-decoration: line-through; }
+  .hero-offer__price { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; color: #3E2F23; }
+  .hero-offer__discount { background: #EFE3D3; color: #B5764C; font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+
+  .hero-offer__button {
+    display: block;
+    width: 100%;
+    background: #D97B4F;
+    color: #fff;
+    font-size: 16.5px;
+    font-weight: 700;
+    text-align: center;
+    padding: 16px 24px;
+    border-radius: 10px;
+    text-decoration: none;
+    box-shadow: 0 10px 22px -8px rgba(217, 123, 79, 0.5);
+    transition: background 0.15s ease, transform 0.15s ease;
+    box-sizing: border-box;
+  }
+  .hero-offer__button:hover { background: #C56A3E; transform: translateY(-1px); }
+
+  .hero-offer__trust-mini { margin-top: 14px; display: flex; justify-content: center; gap: 16px; font-size: 12.5px; color: #8A6E4E; font-weight: 600; text-align: center; }
+
+  @media (max-width: 749px) {
+    .hero-offer__grid { grid-template-columns: 1fr; gap: 0; }
+    .hero-offer__media-wrap { margin: 0 auto 48px auto; max-width: 240px; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Hero Offer",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" }
+  ],
+  "presets": [
+    { "name": "Hero Offer" }
+  ]
+}
+{% endschema %}

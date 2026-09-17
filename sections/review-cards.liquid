@@ -1,0 +1,190 @@
+<div class="review-cards">
+  <div class="review-cards__inner">
+    {% if section.settings.eyebrow != blank %}
+      <p class="review-cards__eyebrow">{{ section.settings.eyebrow }}</p>
+    {% endif %}
+    {% if section.settings.heading != blank %}
+      <h2 class="review-cards__heading">{{ section.settings.heading }}</h2>
+    {% endif %}
+
+    <div class="review-cards__carousel">
+      <div class="review-cards__spacer"></div>
+      {% for block in section.blocks %}
+        {% if block.type == 'review' %}
+          <div class="review-cards__card" {{ block.shopify_attributes }}>
+            <div class="review-cards__stars">
+              {% for i in (1..5) %}★{% endfor %}
+            </div>
+            <p class="review-cards__quote">"{{ block.settings.quote }}"</p>
+            <div class="review-cards__footer">
+              <span class="review-cards__name">{{ block.settings.name }}</span>
+              {% if block.settings.verified %}
+                <span class="review-cards__verified">✓ Verified Buyer</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      <div class="review-cards__spacer"></div>
+    </div>
+
+    <div class="review-cards__dots">
+      {% for block in section.blocks %}
+        {% if block.type == 'review' %}
+          <span class="review-cards__dot"></span>
+        {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .review-cards {
+    background: #fff;
+    padding: 64px 0;
+    font-family: 'Work Sans', sans-serif;
+  }
+
+  .review-cards__inner {
+    max-width: 1160px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .review-cards__eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #B5764C;
+    margin: 0 0 10px;
+    padding: 0 24px;
+  }
+
+  .review-cards__heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(26px, 3vw, 36px);
+    font-weight: 700;
+    color: #3E2F23;
+    margin: 0 0 40px;
+    line-height: 1.2;
+    padding: 0 24px;
+  }
+
+  .review-cards__carousel {
+    display: flex;
+    gap: 24px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: 24px;
+    padding: 8px 0 24px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .review-cards__carousel::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-cards__card {
+    flex: 0 0 300px;
+    scroll-snap-align: start;
+    background: #FFF9F2;
+    border-radius: 18px;
+    padding: 28px;
+    text-align: left;
+    box-shadow: 0 8px 24px -10px rgba(120, 90, 60, 0.18);
+  }
+
+  .review-cards__spacer {
+    flex: 0 0 24px;
+  }
+
+  .review-cards__stars {
+    color: #D97B4F;
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  .review-cards__quote {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #4A3B2C;
+    margin: 0 0 20px;
+  }
+
+  .review-cards__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .review-cards__name {
+    font-size: 14px;
+    font-weight: 700;
+    color: #3E2F23;
+  }
+
+  .review-cards__verified {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6B9080;
+  }
+
+  .review-cards__dots {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 20px;
+  }
+
+  .review-cards__dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #E8D5BE;
+  }
+
+  @media (max-width: 749px) {
+    .review-cards { padding: 20px 0; }
+    .review-cards__heading { margin-bottom: 28px; }
+    .review-cards__card { flex: 0 0 80vw; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Review Cards",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "2,400+ happy dog parents" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Don't just take our word for it." }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "textarea", "id": "quote", "label": "Review text", "default": "My dog used to drag me down the street. Now our walks are actually enjoyable." },
+        { "type": "text", "id": "name", "label": "Customer name", "default": "Sarah M." },
+        { "type": "checkbox", "id": "verified", "label": "Show verified badge", "default": true }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "Review Cards",
+      "blocks": [
+        { "type": "review", "settings": { "quote": "My dog used to drag me down the street. Now our walks are actually enjoyable.", "name": "Sarah M.", "verified": true } },
+        { "type": "review", "settings": { "quote": "Finally a harness that doesn't slip off my escape-artist beagle. Game changer.", "name": "Marcus T.", "verified": true } },
+        { "type": "review", "settings": { "quote": "Bought this after my old collar was choking her on every pull. Wish I found it sooner.", "name": "Priya K.", "verified": true } },
+        { "type": "review", "settings": { "quote": "Adjustable straps actually fit my odd-shaped pit mix perfectly. So comfortable.", "name": "James D.", "verified": true } },
+        { "type": "review", "settings": { "quote": "The reflective strips are clutch for our early morning walks. Feels safer.", "name": "Elena R.", "verified": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -12,12 +12,11 @@
       {% for block in section.blocks %}
         {% if block.type == 'benefit' %}
           {% assign row_index = row_index | plus: 1 %}
-          <div class="benefits__row {% if row_index | modulo: 2 == 0 %}benefits__row--reverse{% endif %}" {{ block.shopify_attributes }}>
+          {% assign row_is_even = row_index | modulo: 2 %}
+          <div class="benefits__row {% if row_is_even == 0 %}benefits__row--reverse{% endif %}" {{ block.shopify_attributes }}>
             <div class="benefits__media">
               {% if block.settings.image %}
                 {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy', class: 'benefits__image' }}
-              {% else %}
-                <img class="benefits__image" src="https://images.unsplash.com/photo-1521058394093-99fe728ffde7?w=800&q=80&auto=format&fit=crop" alt="{{ block.settings.heading }}">
               {% endif %}
             </div>
             <div class="benefits__text">
@@ -84,6 +83,7 @@
     border-radius: 18px;
     overflow: hidden;
     aspect-ratio: 4 / 3;
+    background: #EFE3D3;
   }
 
   .benefits__image {

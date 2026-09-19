@@ -68,7 +68,7 @@
             "text_shop_links": {
               "type": "text",
               "settings": {
-                "text": "<p><a href=\"/\" style=\"color:#D9C4AE\">Home</a><br><a href=\"/collections/all\" style=\"color:#D9C4AE\">Shop All</a><br><a href=\"/pages/about\" style=\"color:#D9C4AE\">About Us</a></p>",
+                "text": "<p><a href=\"/\">Home</a><br><a href=\"/collections/all\">Shop All</a><br><a href=\"/pages/about\">About Us</a></p>",
                 "text_color": "#D9C4AE",
                 "width": "100%",
                 "max_width": "normal",
@@ -159,7 +159,7 @@
             "text_help_links": {
               "type": "text",
               "settings": {
-                "text": "<p><a href=\"/pages/faq\" style=\"color:#D9C4AE\">FAQ</a><br><a href=\"/pages/shipping-returns\" style=\"color:#D9C4AE\">Shipping &amp; Returns</a><br><a href=\"/pages/contact\" style=\"color:#D9C4AE\">Contact Us</a></p>",
+                "text": "<p><a href=\"/pages/faq\">FAQ</a><br><a href=\"/pages/shipping-returns\">Shipping &amp; Returns</a><br><a href=\"/pages/contact\">Contact Us</a></p>",
                 "text_color": "#D9C4AE",
                 "width": "100%",
                 "max_width": "normal",
@@ -303,11 +303,103 @@
             "padding-inline-end": 0
           },
           "blocks": {}
+        },
+        "group_contact": {
+          "type": "group",
+          "settings": {
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "flex-start",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 8,
+            "width": "fill",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "open_in_new_tab": false,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_contact_heading": {
+              "type": "text",
+              "settings": {
+                "text": "<h4>Contact</h4>",
+                "text_color": "#FFF9F2",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h4",
+                "font": "var(--font-body--family)",
+                "font_size": "0.9375rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_contact_info": {
+              "type": "text",
+              "settings": {
+                "text": "<p><a href=\"https://github.com/notaquantdev\" target=\"_blank\">GitHub</a><br><a href=\"mailto:kennethjay0022@gmail.com\">kennethjay0022@gmail.com</a></p>",
+                "text_color": "#D9C4AE",
+                "width": "100%",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "rte",
+                "font": "var(--font-body--family)",
+                "font_size": "0.8125rem",
+                "line_height": "1.7",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_contact_heading",
+            "text_contact_info"
+          ]
         }
       },
       "block_order": [
         "group_shop_links",
         "group_help_links",
+        "group_contact",
         "group_H6VpwJ",
         "email_signup_crihX7"
       ],
@@ -333,32 +425,9 @@
           },
           "blocks": {}
         },
-        "footer_policy_list_VCdnpa": {
-          "type": "footer-policy-list",
-          "settings": {
-            "font_size": "0.6875rem",
-            "case": "none",
-            "text_color": "#D9C4AE"
-          },
-          "blocks": {}
-        },
-        "social_links_Ew63Kq": {
-          "type": "social-links",
-          "settings": {
-            "facebook_url": "https://www.facebook.com/",
-            "instagram_url": "https://www.instagram.com/",
-            "youtube_url": "https://www.youtube.com/",
-            "tiktok_url": "https://www.tiktok.com/",
-            "twitter_url": "https://x.com/",
-            "icons_color": "#D9C4AE"
-          },
-          "blocks": {}
-        }
       },
       "block_order": [
-        "footer_copyright_jweRK8",
-        "footer_policy_list_VCdnpa",
-        "social_links_Ew63Kq"
+        "footer_copyright_jweRK8"
       ],
       "name": "t:names.utilities",
       "settings": {

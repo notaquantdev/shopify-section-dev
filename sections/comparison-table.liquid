@@ -1,0 +1,142 @@
+<style>
+  .comparison-table-section { padding-top: 20px; padding-bottom: 20px; }
+  .comparison-table-section__inner { max-width: 1200px; margin: 0 auto; padding: 0 16px; }
+  .comparison-table-section__heading { text-align: center; margin-bottom: 24px; font-size: 2rem; }
+  .comparison-table { display: flex; flex-direction: column; border: 1px solid #e5e5e5; border-radius: 12px; overflow: hidden; }
+  .comparison-table__row { display: grid; grid-template-columns: 2fr 1fr 1fr; align-items: center; }
+  .comparison-table__row:not(:last-child) { border-bottom: 1px solid #e5e5e5; }
+  .comparison-table__row--header {
+    font-weight: 600;
+    background: {{ settings.color_palette.foreground }};
+    color: {{ settings.color_palette.background }};
+  }
+  .comparison-table__row:nth-child(even):not(.comparison-table__row--header) { background: #fafafa; }
+  .comparison-table__cell { padding: 14px 16px; text-align: center; font-size: 0.95rem; }
+  .comparison-table__cell--label { text-align: left; font-weight: 500; }
+  .comparison-table__row--header .comparison-table__cell--us,
+  .comparison-table__row--header .comparison-table__cell--them {
+    font-size: 1.05rem;
+  }
+  .comparison-table__icon { display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; font-size: 0.85rem; }
+  .comparison-table__icon--check { background: rgba(26,127,55,0.12); color: #1a7f37; }
+  .comparison-table__icon--cross { background: rgba(0,0,0,0.06); color: #999; }
+
+  @media screen and (max-width: 749px) {
+    .comparison-table__row { grid-template-columns: 1.4fr 1fr 1fr; }
+    .comparison-table__cell { padding: 10px 8px; font-size: 0.85rem; }
+    .comparison-table-section__heading { font-size: 1.5rem; }
+  }
+  .comparison-table {
+  border: 1px solid #eaddc9;
+}
+.comparison-table__row--header {
+  font-weight: 600;
+  background: #f6e6d3;
+  color: #2b1d14;
+}
+.comparison-table__row:nth-child(even):not(.comparison-table__row--header) { background: #fbf3e9; }
+.comparison-table__icon--check { background: rgba(224,133,79,0.15); color: #e0854f; }
+.comparison-table__icon--cross { background: rgba(43,29,20,0.06); color: #b0a291; }
+
+</style>
+
+<div class="comparison-table-section">
+  <div class="comparison-table-section__inner page-width">
+    {%- if section.settings.heading != blank -%}
+      <h2 class="comparison-table-section__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="comparison-table" role="table">
+      <div class="comparison-table__row comparison-table__row--header" role="row">
+        <div class="comparison-table__cell comparison-table__cell--label" role="columnheader"></div>
+        <div class="comparison-table__cell comparison-table__cell--us" role="columnheader">
+          {{ section.settings.column_us_label | default: 'Us' }}
+        </div>
+        <div class="comparison-table__cell comparison-table__cell--them" role="columnheader">
+          {{ section.settings.column_them_label | default: 'Others' }}
+        </div>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'row' -%}
+          <div class="comparison-table__row" role="row" {{ block.shopify_attributes }}>
+            <div class="comparison-table__cell comparison-table__cell--label" role="cell">
+              {{ block.settings.feature }}
+            </div>
+            <div class="comparison-table__cell comparison-table__cell--us" role="cell">
+              {%- if block.settings.us_value != blank -%}
+                {{ block.settings.us_value }}
+              {%- elsif block.settings.us_check -%}
+                <span class="comparison-table__icon comparison-table__icon--check" aria-label="Yes">✓</span>
+              {%- else -%}
+                <span class="comparison-table__icon comparison-table__icon--cross" aria-label="No">✕</span>
+              {%- endif -%}
+            </div>
+            <div class="comparison-table__cell comparison-table__cell--them" role="cell">
+              {%- if block.settings.them_value != blank -%}
+                {{ block.settings.them_value }}
+              {%- elsif block.settings.them_check -%}
+                <span class="comparison-table__icon comparison-table__icon--check" aria-label="Yes">✓</span>
+              {%- else -%}
+                <span class="comparison-table__icon comparison-table__icon--cross" aria-label="No">✕</span>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Comparison table",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Why choose us"
+    },
+    {
+      "type": "text",
+      "id": "column_us_label",
+      "label": "Your product column label",
+      "default": "Us"
+    },
+    {
+      "type": "text",
+      "id": "column_them_label",
+      "label": "Competitor column label",
+      "default": "Others"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "row",
+      "name": "Row",
+      "settings": [
+        { "type": "text", "id": "feature", "label": "Feature", "default": "Feature name" },
+        { "type": "checkbox", "id": "us_check", "label": "Us: show checkmark", "default": true },
+        { "type": "text", "id": "us_value", "label": "Us: text (overrides checkmark)" },
+        { "type": "checkbox", "id": "them_check", "label": "Others: show checkmark", "default": false },
+        { "type": "text", "id": "them_value", "label": "Others: text (overrides checkmark)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Comparison table",
+      "blocks": [
+        { "type": "row", "settings": { "feature": "No-pull design", "us_check": true, "them_check": false } },
+        { "type": "row", "settings": { "feature": "Padded, zero chafing", "us_check": true, "them_check": false } },
+        { "type": "row", "settings": { "feature": "Reflective for night walks", "us_check": true, "them_check": false } },
+        { "type": "row", "settings": { "feature": "Fits XS–XL breeds", "us_check": true, "them_value": "Limited sizes" } },
+        { "type": "row", "settings": { "feature": "30-Day Guarantee", "us_check": true, "them_check": false } }
+      ]
+    }
+  ]
+}
+{% endschema %}

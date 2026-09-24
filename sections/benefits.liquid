@@ -1,4 +1,14 @@
-<div class="benefits">
+<div
+  class="benefits"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --eyebrow: {{ section.settings.eyebrow_color }};
+    --heading: {{ section.settings.heading_color }};
+    --media-bg: {{ section.settings.media_bg_color }};
+    --row-heading: {{ section.settings.row_heading_color }};
+    --row-text: {{ section.settings.row_text_color }};
+  "
+>
   <div class="benefits__inner">
     {% if section.settings.eyebrow != blank %}
       <p class="benefits__eyebrow">{{ section.settings.eyebrow }}</p>
@@ -32,7 +42,7 @@
 
 <style>
   .benefits {
-    background: #FFF9F2;
+    background: var(--bg);
     padding: 56px 24px;
     font-family: 'Work Sans', sans-serif;
   }
@@ -47,7 +57,7 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: #B5764C;
+    color: var(--eyebrow);
     margin: 0 0 10px;
     text-align: center;
   }
@@ -56,7 +66,7 @@
     font-family: 'Fraunces', serif;
     font-size: clamp(26px, 3vw, 36px);
     font-weight: 700;
-    color: #3E2F23;
+    color: var(--heading);
     margin: 0 0 48px;
     line-height: 1.2;
     text-align: center;
@@ -83,7 +93,7 @@
     border-radius: 18px;
     overflow: hidden;
     aspect-ratio: 4 / 3;
-    background: #EFE3D3;
+    background: var(--media-bg);
   }
 
   .benefits__image {
@@ -97,14 +107,14 @@
     font-family: 'Fraunces', serif;
     font-size: 24px;
     font-weight: 700;
-    color: #3E2F23;
+    color: var(--row-heading);
     margin: 0 0 12px;
   }
 
   .benefits__row-text {
     font-size: 15.5px;
     line-height: 1.6;
-    color: #6B5842;
+    color: var(--row-text);
     margin: 0;
     max-width: 380px;
   }
@@ -127,8 +137,17 @@
 {
   "name": "Benefits",
   "settings": [
+    { "type": "header", "content": "Content" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Why dog parents love it" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "More than a harness." }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "More than a harness." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFF9F2" },
+    { "type": "color", "id": "eyebrow_color", "label": "Eyebrow text", "default": "#B5764C" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#3E2F23" },
+    { "type": "color", "id": "media_bg_color", "label": "Image placeholder background", "default": "#EFE3D3" },
+    { "type": "color", "id": "row_heading_color", "label": "Row heading", "default": "#3E2F23" },
+    { "type": "color", "id": "row_text_color", "label": "Row description", "default": "#6B5842" }
   ],
   "blocks": [
     {

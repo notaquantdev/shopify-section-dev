@@ -1,4 +1,13 @@
-<div class="problem-list">
+<div
+  class="problem-list"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --eyebrow: {{ section.settings.eyebrow_color }};
+    --heading: {{ section.settings.heading_color }};
+    --card-bg: {{ section.settings.card_bg_color }};
+    --text: {{ section.settings.text_color }};
+  "
+>
   <div class="problem-list__inner">
     {% if section.settings.eyebrow != blank %}
       <p class="problem-list__eyebrow">{{ section.settings.eyebrow }}</p>
@@ -22,7 +31,7 @@
 
 <style>
   .problem-list {
-    background: #FFF9F2;
+    background: var(--bg);
     padding: 56px 24px;
     font-family: 'Work Sans', sans-serif;
   }
@@ -38,7 +47,7 @@
     font-weight: 700;
     letter-spacing: 0.03em;
     text-transform: uppercase;
-    color: #B5764C;
+    color: var(--eyebrow);
     margin: 0 0 10px;
   }
 
@@ -46,7 +55,7 @@
     font-family: 'Fraunces', serif;
     font-size: clamp(26px, 3vw, 36px);
     font-weight: 700;
-    color: #3E2F23;
+    color: var(--heading);
     margin: 0 0 36px;
     line-height: 1.2;
   }
@@ -62,7 +71,7 @@
     display: flex;
     align-items: flex-start;
     gap: 14px;
-    background: #fff;
+    background: var(--card-bg);
     padding: 16px 20px;
     border-radius: 14px;
   }
@@ -75,7 +84,7 @@
   .problem-list__text {
     font-size: 15.5px;
     line-height: 1.5;
-    color: #4A3B2C;
+    color: var(--text);
     margin: 0;
   }
 
@@ -89,8 +98,16 @@
 {
   "name": "Problem List",
   "settings": [
+    { "type": "header", "content": "Content" },
     { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Sound familiar?" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "Walking your dog shouldn't feel like a wrestling match." }
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Walking your dog shouldn't feel like a wrestling match." },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFF9F2" },
+    { "type": "color", "id": "eyebrow_color", "label": "Eyebrow text", "default": "#B5764C" },
+    { "type": "color", "id": "heading_color", "label": "Heading", "default": "#3E2F23" },
+    { "type": "color", "id": "card_bg_color", "label": "Card background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Card text", "default": "#4A3B2C" }
   ],
   "blocks": [
     {

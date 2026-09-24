@@ -1,6 +1,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-<div class="hero-offer">
+<div
+  class="hero-offer"
+  style="
+    --bg: {{ section.settings.bg_color }};
+    --blob: {{ section.settings.blob_color }};
+    --heading: {{ section.settings.heading_color }};
+    --accent: {{ section.settings.accent_color }};
+    --accent-hover: {{ section.settings.accent_hover_color }};
+    --description: {{ section.settings.description_color }};
+    --stamp-bg: {{ section.settings.stamp_bg_color }};
+    --discount-bg: {{ section.settings.discount_bg_color }};
+    --discount-text: {{ section.settings.discount_text_color }};
+    --button-text: {{ section.settings.button_text_color }};
+    --trust-text: {{ section.settings.trust_text_color }};
+  "
+>
   <div class="hero-offer__paws" aria-hidden="true">
     <span class="paw p1">🐾</span>
     <span class="paw p2">🐾</span>
@@ -19,32 +34,46 @@
           <img class="hero-offer__image" src="https://images.unsplash.com/photo-1581597359121-0f69057e2fb1?w=1200&q=80&auto=format&fit=crop" alt="Dog wearing the SnugWalk harness">
         {% endif %}
       </div>
-      <span class="hero-offer__badge">Launch Week</span>
-      <div class="hero-offer__stamp"><span>🐾 Fur-Parent<br>Approved</span></div>
+      {% if section.settings.badge_text != blank %}
+        <span class="hero-offer__badge">{{ section.settings.badge_text }}</span>
+      {% endif %}
+      {% if section.settings.stamp_text != blank %}
+        <div class="hero-offer__stamp"><span>{{ section.settings.stamp_text }}</span></div>
+      {% endif %}
     </div>
 
     <div class="hero-offer__content">
-      <h1 class="hero-offer__heading">Walks <em>without the fight</em>.</h1>
-      <p class="hero-offer__description">Even the strongest pullers settle down with SnugWalk.</p>
+      <h1 class="hero-offer__heading">{{ section.settings.heading }}</h1>
+      {% if section.settings.description != blank %}
+        <p class="hero-offer__description">{{ section.settings.description }}</p>
+      {% endif %}
 
       <ul class="hero-offer__usps">
-        <li>Fits <strong>XS to XL</strong> breeds</li>
-        <li><strong>Padded</strong> chest panel, zero rubbing</li>
-        <li>On in <strong>10 seconds</strong>, no fuss</li>
+        {% if section.settings.usp_1 != blank %}<li>{{ section.settings.usp_1 }}</li>{% endif %}
+        {% if section.settings.usp_2 != blank %}<li>{{ section.settings.usp_2 }}</li>{% endif %}
+        {% if section.settings.usp_3 != blank %}<li>{{ section.settings.usp_3 }}</li>{% endif %}
       </ul>
 
       <div class="hero-offer__price-row">
-        <span class="hero-offer__compare-price">$49.95</span>
-        <span class="hero-offer__price">$34.95</span>
-        <span class="hero-offer__discount">30% Rabatt</span>
+        {% if section.settings.compare_price != blank %}
+          <span class="hero-offer__compare-price">{{ section.settings.compare_price }}</span>
+        {% endif %}
+        <span class="hero-offer__price">{{ section.settings.price }}</span>
+        {% if section.settings.discount_label != blank %}
+          <span class="hero-offer__discount">{{ section.settings.discount_label }}</span>
+        {% endif %}
       </div>
 
-      <a href="#" class="hero-offer__button">Save 30% Now</a>
+      {% if section.settings.button_label != blank %}
+        <a href="{{ section.settings.button_link | default: '#' }}" class="hero-offer__button">{{ section.settings.button_label }}</a>
+      {% endif %}
 
-      <div class="hero-offer__trust-mini">
-        <span>30-Day Guarantee</span>
-        <span>Free Shipping</span>
-      </div>
+      {% if section.settings.trust_text_1 != blank or section.settings.trust_text_2 != blank %}
+        <div class="hero-offer__trust-mini">
+          {% if section.settings.trust_text_1 != blank %}<span>{{ section.settings.trust_text_1 }}</span>{% endif %}
+          {% if section.settings.trust_text_2 != blank %}<span>{{ section.settings.trust_text_2 }}</span>{% endif %}
+        </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -53,7 +82,7 @@
   .hero-offer {
     position: relative;
     font-family: 'Work Sans', sans-serif;
-    background: #FFF9F2;
+    background: var(--bg);
     padding: 20px 16px;
     overflow: hidden;
   }
@@ -98,7 +127,7 @@
     left: -10%;
     width: 120%;
     height: 120%;
-    background: #F4D9B8;
+    background: var(--blob);
     border-radius: 42% 58% 65% 35% / 45% 40% 60% 55%;
     z-index: 0;
   }
@@ -119,8 +148,8 @@
     top: 6%;
     left: 2%;
     z-index: 2;
-    background: #D97B4F;
-    color: #fff;
+    background: var(--accent);
+    color: var(--button-text);
     font-family: 'Fraunces', serif;
     font-weight: 700;
     font-size: 12.5px;
@@ -137,8 +166,8 @@
     z-index: 2;
     width: 70px;
     height: 70px;
-    background: #6B9080;
-    color: #fff;
+    background: var(--stamp-bg);
+    color: var(--button-text);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -152,24 +181,24 @@
     border: 2px dashed rgba(255,255,255,0.5);
   }
 
-  .hero-offer__heading { font-family: 'Fraunces', serif; font-size: clamp(32px, 3.6vw, 44px); line-height: 1.14; font-weight: 700; margin: 0 0 12px; color: #3E2F23; }
-  .hero-offer__heading em { font-style: italic; color: #D97B4F; }
-  .hero-offer__description { font-size: 16px; line-height: 1.5; color: #6B5842; margin: 0 0 16px; max-width: 380px; }
+  .hero-offer__heading { font-family: 'Fraunces', serif; font-size: clamp(32px, 3.6vw, 44px); line-height: 1.14; font-weight: 700; margin: 0 0 12px; color: var(--heading); }
+  .hero-offer__heading em { font-style: italic; color: var(--accent); }
+  .hero-offer__description { font-size: 16px; line-height: 1.5; color: var(--description); margin: 0 0 16px; max-width: 380px; }
 
   .hero-offer__usps { list-style: none; margin: 0 0 20px; padding: 0; display: flex; flex-direction: column; gap: 5px; }
-  .hero-offer__usps li { font-size: 14px; color: #4A3B2C; padding-left: 16px; position: relative; }
-  .hero-offer__usps li::before { content: "—"; position: absolute; left: 0; color: #D97B4F; }
+  .hero-offer__usps li { font-size: 14px; color: var(--heading); padding-left: 16px; position: relative; }
+  .hero-offer__usps li::before { content: "—"; position: absolute; left: 0; color: var(--accent); }
 
   .hero-offer__price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
-  .hero-offer__compare-price { font-size: 15px; color: #B08968; text-decoration: line-through; }
-  .hero-offer__price { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; color: #3E2F23; }
-  .hero-offer__discount { background: #EFE3D3; color: #B5764C; font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
+  .hero-offer__compare-price { font-size: 15px; color: var(--description); text-decoration: line-through; }
+  .hero-offer__price { font-family: 'Fraunces', serif; font-size: 28px; font-weight: 700; color: var(--heading); }
+  .hero-offer__discount { background: var(--discount-bg); color: var(--discount-text); font-size: 12.5px; font-weight: 700; padding: 4px 10px; border-radius: 6px; }
 
   .hero-offer__button {
     display: block;
     width: 100%;
-    background: #D97B4F;
-    color: #fff;
+    background: var(--accent);
+    color: var(--button-text);
     font-size: 16.5px;
     font-weight: 700;
     text-align: center;
@@ -180,9 +209,9 @@
     transition: background 0.15s ease, transform 0.15s ease;
     box-sizing: border-box;
   }
-  .hero-offer__button:hover { background: #C56A3E; transform: translateY(-1px); }
+  .hero-offer__button:hover { background: var(--accent-hover); transform: translateY(-1px); }
 
-  .hero-offer__trust-mini { margin-top: 14px; display: flex; justify-content: center; gap: 16px; font-size: 12.5px; color: #8A6E4E; font-weight: 600; text-align: center; }
+  .hero-offer__trust-mini { margin-top: 14px; display: flex; justify-content: center; gap: 16px; font-size: 12.5px; color: var(--trust-text); font-weight: 600; text-align: center; }
 
   @media (max-width: 749px) {
     .hero-offer__grid { grid-template-columns: 1fr; gap: 0; }
@@ -194,7 +223,43 @@
 {
   "name": "Hero Offer",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Image" }
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+
+    { "type": "header", "content": "Content" },
+    { "type": "richtext", "id": "heading", "label": "Heading", "default": "<h1>Walks <em>without the fight</em>.</h1>" },
+    { "type": "text", "id": "description", "label": "Description", "default": "Even the strongest pullers settle down with SnugWalk." },
+    { "type": "text", "id": "usp_1", "label": "USP 1", "default": "Fits XS to XL breeds" },
+    { "type": "text", "id": "usp_2", "label": "USP 2", "default": "Padded chest panel, zero rubbing" },
+    { "type": "text", "id": "usp_3", "label": "USP 3", "default": "On in 10 seconds, no fuss" },
+    { "type": "text", "id": "badge_text", "label": "Corner badge text", "default": "Launch Week" },
+    { "type": "text", "id": "stamp_text", "label": "Stamp text", "default": "🐾 Fur-Parent Approved" },
+
+    { "type": "header", "content": "Price" },
+    { "type": "text", "id": "compare_price", "label": "Compare-at price", "default": "$49.95" },
+    { "type": "text", "id": "price", "label": "Price", "default": "$34.95" },
+    { "type": "text", "id": "discount_label", "label": "Discount label", "default": "30% Off" },
+
+    { "type": "header", "content": "Button" },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Save 30% Now" },
+    { "type": "url", "id": "button_link", "label": "Button link" },
+
+    { "type": "header", "content": "Trust line" },
+    { "type": "text", "id": "trust_text_1", "label": "Trust text 1", "default": "30-Day Guarantee" },
+    { "type": "text", "id": "trust_text_2", "label": "Trust text 2", "default": "Free Shipping" },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFF9F2" },
+    { "type": "color", "id": "blob_color", "label": "Blob shape", "default": "#F4D9B8" },
+    { "type": "color", "id": "heading_color", "label": "Heading / price text", "default": "#3E2F23" },
+    { "type": "color", "id": "description_color", "label": "Body text", "default": "#6B5842" },
+    { "type": "color", "id": "accent_color", "label": "Accent (badge, button, emphasis)", "default": "#D97B4F" },
+    { "type": "color", "id": "accent_hover_color", "label": "Accent hover", "default": "#C56A3E" },
+    { "type": "color", "id": "stamp_bg_color", "label": "Stamp background", "default": "#6B9080" },
+    { "type": "color", "id": "discount_bg_color", "label": "Discount pill background", "default": "#EFE3D3" },
+    { "type": "color", "id": "discount_text_color", "label": "Discount pill text", "default": "#B5764C" },
+    { "type": "color", "id": "button_text_color", "label": "Button / badge text", "default": "#FFFFFF" },
+    { "type": "color", "id": "trust_text_color", "label": "Trust line text", "default": "#8A6E4E" }
   ],
   "presets": [
     { "name": "Hero Offer" }
